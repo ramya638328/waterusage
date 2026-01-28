@@ -1,11 +1,17 @@
 import streamlit as st
 import pickle
 import numpy as np
+import os
 
 st.set_page_config(page_title="Water Usage Prediction")
 
-# Load trained model
-with open("waterusage_model.pkl", "rb") as file:
+MODEL_FILE = "waterusage_model.pkl"
+
+if not os.path.exists(MODEL_FILE):
+    st.error("❌ Model file not found. Please upload 'waterusage_model.pkl' to the repository.")
+    st.stop()
+
+with open(MODEL_FILE, "rb") as file:
     model = pickle.load(file)
 
 st.title("💧 Water Usage Prediction App")
